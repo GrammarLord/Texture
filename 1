@@ -1,0 +1,54 @@
+VOID WINAPI CreateTextures(LPDIRECT3DDEVICE9 pDev)
+{
+	if (!Red)		GenTex(pDev, &Red, D3DCOLOR_ARGB(255, 255, 0, 0));
+
+}
+BOOL WINAPI GenTex(LPDIRECT3DDEVICE9 pDev,
+	LPDIRECT3DTEXTURE9 * ppD3Dtex, DWORD Color)
+{
+	D3DLOCKED_RECT d3dlr = { NULL };
+	IDirect3DTexture9 *	Temp = NULL;
+
+	if (FAILED(pDev->CreateTexture(100, 100, 1, 0, D3DFMT_A8R8G8B8,
+		D3DPOOL_DEFAULT, ppD3Dtex, NULL)))
+		return FALSE;
+
+	if (FAILED(pDev->CreateTexture(100, 100, 1, 0, D3DFMT_A8R8G8B8,
+		D3DPOOL_SYSTEMMEM, &Temp, NULL)))
+	{
+		D3D_RELEASE((*ppD3Dtex))
+			return FALSE;
+	}
+
+	if (Temp->LockRect(0, &d3dlr, 0, 0) == S_OK)
+	{
+		for (int i = 0; i < 100 * 100; i++)
+			((PDWORD)d3dlr.pBits)[i] = Color;
+
+		Temp->UnlockRect(0);
+
+		pDev->UpdateTexture(Temp, *ppD3Dtex);
+	}
+	else
+	{
+		D3D_RELEASE(Temp)
+			D3D_RELEASE((*ppD3Dtex))
+			return FALSE;
+	}
+
+	D3D_RELEASE(Temp)
+
+		return TRUE;
+}
+
+	if (chams == 1)
+	{
+		{
+		if (Chams && (Stride==0))
+			pDevice->SetTexture(0, Yellow);
+			pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+			OrigDrawIndexedPrimitive(pDevice, Type, Base, Min, NumVertices, Start, PrimitiveCount);
+			pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+			pDevice->SetTexture(0, Red);
+		}
+	}
